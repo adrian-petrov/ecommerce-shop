@@ -1,0 +1,272 @@
+[
+  {
+    "Id": 1,
+    "Name": "Jupiter Trousers Denim",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 120,
+    "Type": "Trousers",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 1
+  },
+  {
+    "Id": 2,
+    "Name": "Jupiter Trousers Navy",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 120,
+    "Type": "Trousers",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 1
+  },
+  {
+    "Id": 3,
+    "Name": "Jupiter Trousers Grey",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 120,
+    "Type": "Trousers",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 1
+  },
+  {
+    "Id": 4,
+    "Name": "Jupiter T-Shirt V-Neck White",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 24.99,
+    "Type": "T-Shirts",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 2
+  },
+  {
+    "Id": 5,
+    "Name": "Neptune Shoes Red",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 135,
+    "Type": "Shoes",
+    "Brand": "Neptune",
+    "ProductBrandId": 2,
+    "ProductTypeId": 4
+  },
+  {
+    "Id": 6,
+    "Name": "Neptune Shoes Light Red",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 139,
+    "Type": "Shoes",
+    "Brand": "Neptune",
+    "ProductBrandId": 2,
+    "ProductTypeId": 4
+  },
+  {
+    "Id": 7,
+    "Name": "Neptune Shoes Lilac",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 147,
+    "Type": "Shoes",
+    "Brand": "Neptune",
+    "ProductBrandId": 2,
+    "ProductTypeId": 4
+  },
+  {
+    "Id": 8,
+    "Name": "Neptune Shorts",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 49.99,
+    "Type": "Shorts",
+    "Brand": "Neptune",
+    "ProductBrandId": 2,
+    "ProductTypeId": 3
+  },
+  {
+    "Id": 9,
+    "Name": "Neptune T-Shirt Crew-Neck",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 27,
+    "Type": "T-Shirts",
+    "Brand": "Neptune",
+    "ProductBrandId": 2,
+    "ProductTypeId": 2
+  },
+  {
+    "Id": 10,
+    "Name": "Jupiter Hat Brown",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 12.99,
+    "Type": "Hats",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 5
+  },
+  {
+    "Id": 11,
+    "Name": "Jupiter Hat Pink/Yellow",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 29.99,
+    "Type": "Hats",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 5
+  },
+  {
+    "Id": 12,
+    "Name": "Neptune Hat Brown",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 13,
+    "Type": "Hats",
+    "Brand": "Neptune",
+    "ProductBrandId": 2,
+    "ProductTypeId": 5
+  },
+  {
+    "Id": 13,
+    "Name": "Venus Hat Yellow",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 15,
+    "Type": "Hats",
+    "Brand": "Venus",
+    "ProductBrandId": 3,
+    "ProductTypeId": 5
+  },
+  {
+    "Id": 14,
+    "Name": "Venus Hat Orange/Green",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 21,
+    "Type": "Hats",
+    "Brand": "Venus",
+    "ProductBrandId": 3,
+    "ProductTypeId": 5
+  },
+  {
+    "Id": 15,
+    "Name": "Venus Hat Orange/Yellow",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 21,
+    "Type": "Hats",
+    "Brand": "Venus",
+    "ProductBrandId": 3,
+    "ProductTypeId": 5
+  },
+  {
+    "Id": 16,
+    "Name": "Venus Hat Orange/Green",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 21,
+    "Type": "Hats",
+    "Brand": "Venus",
+    "ProductBrandId": 3,
+    "ProductTypeId": 5
+  },
+  {
+    "Id": 17,
+    "Name": "Venus Trousers",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 84,
+    "Type": "Trousers",
+    "Brand": "Venus",
+    "ProductBrandId": 3,
+    "ProductTypeId": 1
+  },
+  {
+    "Id": 18,
+    "Name": "Jupiter Trousers Denim Heavily Distressed",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 44,
+    "Type": "Trousers",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 1
+  },
+  {
+    "Id": 19,
+    "Name": "Jupiter Trousers Denim Stars",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 44,
+    "Type": "Trousers",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 1
+  },
+  {
+    "Id": 20,
+    "Name": "Jupiter Trousers Denim Lightly Distressed",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 44,
+    "Type": "Trousers",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 1
+  },
+  {
+    "Id": 21,
+    "Name": "Jupiter T-Shirt V-Neck White",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 17.99,
+    "Type": "T-Shirts",
+    "Brand": "Jupiter",
+    "ProductBrandId": 1,
+    "ProductTypeId": 2
+  },
+  {
+    "Id": 22,
+    "Name": "Neptune Trousers Purple/Pink",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 94,
+    "Type": "Trousers",
+    "Brand": "Neptune",
+    "ProductBrandId": 2,
+    "ProductTypeId": 1
+  },
+  {
+    "Id": 23,
+    "Name": "Neptune Trousers Denim",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 23.99,
+    "Type": "Trousers",
+    "Brand": "Neptune",
+    "ProductBrandId": 2,
+    "ProductTypeId": 1
+  },
+  {
+    "Id": 24,
+    "Name": "Neptune T-Shirt Crew-Neck",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 9.99,
+    "Type": "T-Shirts",
+    "Brand": "Neptune",
+    "ProductBrandId": 2,
+    "ProductTypeId": 2
+  },
+  {
+    "Id": 25,
+    "Name": "Venus Shoes Brown",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 124,
+    "Type": "Shoes",
+    "Brand": "Venus",
+    "ProductBrandId": 3,
+    "ProductTypeId": 4
+  },
+  {
+    "Id": 26,
+    "Name": "Venus Shoes Red",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 145,
+    "Type": "Shoes",
+    "Brand": "Venus",
+    "ProductBrandId": 3,
+    "ProductTypeId": 4
+  },
+  {
+    "Id": 27,
+    "Name": "Venus Shoes Sandals Red",
+    "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "BasePrice": 159,
+    "Type": "Shoes",
+    "Brand": "Venus",
+    "ProductBrandId": 3,
+    "ProductTypeId": 4
+  }
+]

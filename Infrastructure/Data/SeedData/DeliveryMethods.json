@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "ShortName": "Standard",
+    "DeliveryTime": "3-5 Business Days",
+    "Price": 1.99
+  },
+  {
+    "Id": 2,
+    "ShortName": "Express",
+    "DeliveryTime": "1-2 Business Days",
+    "Price": 3.99
+  },
+  {
+    "Id": 3,
+    "ShortName": "Next Day",
+    "DeliveryTime": "1 Business Day",
+    "Price": 7.99
+  }
+]

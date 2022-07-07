@@ -1,0 +1,81 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "airbnb",
+    "prettier",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier", "@typescript-eslint", "import"],
+  "rules": {
+    "react/jsx-filename-extension": "off",
+    "no-use-before-define": "off",
+    "import/extensions": "off",
+    "arrow-body-style": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "jsx-a11y/media-has-caption": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/no-noninteractive-tabindex": "off",
+    "react/no-array-index-key": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "react/jsx-props-no-spreading": [
+      "error",
+      {
+        "custom": "ignore"
+      }
+    ],
+    "@typescript-eslint/no-var-requires": "off",
+    "global-require": "off",
+    "no-param-reassign": "off",
+    "import/no-cycle": "off",
+    "no-sequences": "off",
+    "jsx-a11y/img-redundant-alt": "off",
+    "no-plusplus": "off",
+    "prefer-destructuring": "off",
+    "import/no-unresolved": "off",
+    "object-shorthand": "off",
+    "react/prop-types": "off",
+    "consistent-return": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "prefer-template": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/require-default-props": "off",
+    "jsx-a11y/interactive-supports-focus": "off",
+    "dot-notation": "off",
+    "jsx-a11y/control-has-associated-label": "off",
+    "no-nested-ternary": "off",
+    "class-methods-use-this": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/no-unused-prop-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
+  }
+}

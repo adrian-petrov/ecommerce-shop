@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 1,
+    "Name": "Gender"
+  },
+  {
+    "Id": 2,
+    "Name": "Colour"
+  },
+  {
+    "Id": 3,
+    "Name": "Size"
+  },
+  {
+    "Id": 4,
+    "Name": "Waist"
+  },
+  {
+    "Id": 5,
+    "Name": "Length"
+  }
+]

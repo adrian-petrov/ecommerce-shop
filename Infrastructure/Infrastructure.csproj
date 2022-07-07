@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Specification" Version="5.2.0" />
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="5.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.9.0" />
+    <PackageReference Include="NEST" Version="7.17.4" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0-alpha.2" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\SeedData\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\SeedData\" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>
