@@ -83,7 +83,7 @@ namespace API.Controllers
             await _productVariationRepository.UpdateAsync(productVariation);
 
             var productSpec = new AdminProductSpecification(requestDto.ProductId);
-            var product = await _productRepository.FirstOrDefaultAsync(productSpec); 
+            var product = await _productRepository.FirstOrDefaultAsync(productSpec);
 
             // Update optionValues stock
             var colour = product.ProductOptions
@@ -91,8 +91,8 @@ namespace API.Controllers
                 .SelectMany(po => po.ProductOptionValues)
                 .FirstOrDefault(pov => pov.Id == requestDto.Colour);
             if (colour != null)
-                colour.Stock += requestDto.TotalStock;
-            
+                colour.Stock = requestDto.TotalStock == 0 ? 0 : colour.Stock + requestDto.TotalStock;
+
             switch (product.Type)
             {
                 case "T-Shirts" or "Shoes":
@@ -101,19 +101,16 @@ namespace API.Controllers
                         .SelectMany(po => po.ProductOptionValues)
                         .FirstOrDefault(pov => pov.Id == requestDto.Size);
 
-                    if (size != null)
-                    {
-                        size.Stock += requestDto.TotalStock;
-                    }
+                    if (size != null) size.Stock = requestDto.TotalStock == 0 ? 0 : size.Stock + requestDto.TotalStock;
                     break;
                 case "Shorts":
                     var waistShorts = product.ProductOptions
                         .Where(po => po.Name == "Waist")
                         .SelectMany(po => po.ProductOptionValues)
                         .FirstOrDefault(pov => pov.Id == requestDto.Waist);
-                    
-                    if (waistShorts != null) 
-                        waistShorts.Stock += requestDto.TotalStock;
+
+                    if (waistShorts != null)
+                        waistShorts.Stock = requestDto.TotalStock == 0 ? 0 : waistShorts.Stock + requestDto.TotalStock;
                     break;
                 case "Trousers":
                     var waistTrousers = product.ProductOptions
@@ -127,8 +124,11 @@ namespace API.Controllers
 
                     if (waistTrousers != null && length != null)
                     {
-                        waistTrousers.Stock += requestDto.TotalStock;
-                        length.Stock += requestDto.TotalStock;
+                        waistTrousers.Stock = requestDto.TotalStock == 0
+                            ? 0
+                            : waistTrousers.Stock + requestDto
+                                .TotalStock;
+                        length.Stock = requestDto.TotalStock == 0 ? 0 : length.Stock + requestDto.TotalStock;
                     }
                     break;
             }
@@ -150,13 +150,13 @@ namespace API.Controllers
             await _productVariationRepository.DeleteAsync(entity);
 
             var dto = _mapper.Map<AdminProductVariationResponseDto>(entity);
-            
+
             return new AdminOneResponseDto<AdminProductVariationResponseDto>
             {
                 Data = _mapper.Map<AdminProductVariationResponseDto>(dto)
             };
         }
-        
+
         [HttpDelete("inventory")]
         public async Task<ActionResult<AdminManyResponseDto<int>>> DeleteMany(
             AdminManyQueryParams queryParams)
@@ -170,7 +170,7 @@ namespace API.Controllers
             var result = new AdminManyResponseDto<int> { Data = ids };
             return result;
         }
-        
+
 
         [HttpPost("inventory")]
         public async Task<ActionResult<AdminOneResponseDto<AdminProductVariationResponseDto>>> CreateOne(
