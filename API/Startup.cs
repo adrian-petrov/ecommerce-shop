@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
@@ -116,14 +117,19 @@ namespace API
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+                app.UseMiddleware<RequestLoggingMiddleware>();
             }
             else
             {
                 app.UseExceptionHandler("/error");
             }
 
-            // Helper middleware to log HTTP request            
-            app.UseMiddleware<RequestLoggingMiddleware>();
+            // For nginx reverse proxy
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+            
             app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
