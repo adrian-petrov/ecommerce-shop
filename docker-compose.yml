@@ -112,6 +112,7 @@ services:
       - DOCKER_ConnectionStrings__DefaultConnection=${CONNECTION_STRINGS_DEFAULT_CONNECTION}
       - DOCKER_BasePaths__SeedDataPath=${SEED_DATA_PATH}
       - DOCKER_BasePaths__ContentPath=${CONTENT_PATH}
+      - DOCKER_Elastic__Host=${ELASTIC_HOST}
       - DOCKER_Elastic__User=${ELASTIC_USER}
       - DOCKER_Elastic__Password=${ELASTIC_PASSWORD}
       - DOCKER_Jwt__Issuer=${JWT_ISSUER}
