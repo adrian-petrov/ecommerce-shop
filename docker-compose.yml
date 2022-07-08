@@ -4,8 +4,8 @@ services:
   api:
     image: api
     build:
-      context: ./docker/web
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/web/Dockerfile
     restart: always
     ports: 
       - ${KESTREL_PORT}:80
