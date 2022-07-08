@@ -21,10 +21,15 @@ services:
       - DB_HOSTNAME=${DB_HOSTNAME}
       - DB_PORT=${DB_PORT}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DOCKER_ConnectionStrings__DefaultConnection=${CONNECTION_STRINGS_DEFAULT_CONNECTION}
       - DOCKER_BasePaths__SeedDataPath=${SEED_DATA_PATH}
       - DOCKER_BasePaths__ContentPath=${CONTENT_PATH}
       - DOCKER_Elastic__User=${ELASTIC_USER}
       - DOCKER_Elastic__Password=${ELASTIC_PASSWORD}
+      - DOCKER_Jwt__Issuer=${JWT_ISSUER}
+      - DOCKER_Jwt__AdminIssuer=${JWT_ADMIN_ISSUER}
+      - DOCKER_Jwt__Secret=${JWT_SECRET}
+      - DOCKER_Jwt__RefreshTokenTTL=${JWT_REFRESHTOKENTTL}
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
       - ~/.aspnet/https:/https:ro
