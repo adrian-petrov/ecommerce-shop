@@ -4,7 +4,7 @@ services:
   api:
     image: api
     build:
-      context: web
+      context: ./docker/web
       dockerfile: Dockerfile
     restart: always
     ports: 
