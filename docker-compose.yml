@@ -1,46 +1,7 @@
 version: '3.8'
 
 services:
-  api:
-    image: api
-    build:
-      context: .
-      dockerfile: ./docker/web/Dockerfile
-    restart: always
-    ports: 
-      - ${KESTREL_PORT}:80
-      - ${KESTREL_SSL_PORT}:443
-    depends_on:
-      - db
-      - es01
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT} # debug runs in development mode
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${KESTREL_CERTIFICATES_PASSWORD}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${KESTREL_CERTIFICATES_PATH}
-      - DOCKER_ConnectionStrings__DefaultConnection=${CONNECTION_STRINGS_DEFAULT_CONNECTION}
-      - DOCKER_BasePaths__SeedDataPath=${SEED_DATA_PATH}
-      - DOCKER_BasePaths__ContentPath=${CONTENT_PATH}
-      - DOCKER_Elastic__User=${ELASTIC_USER}
-      - DOCKER_Elastic__Password=${ELASTIC_PASSWORD}
-      - DOCKER_Jwt__Issuer=${JWT_ISSUER}
-      - DOCKER_Jwt__AdminIssuer=${JWT_ADMIN_ISSUER}
-      - DOCKER_Jwt__Secret=${JWT_SECRET}
-      - DOCKER_Jwt__RefreshTokenTTL=${JWT_REFRESHTOKENTTL}
-    volumes:
-      - ~/.vsdbg:/remote_debugger:rw
-      - ~/.aspnet/https:/https:ro
-  
-  db: 
-    image: mysql:8.0.29
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DB=${MYSQL_DB}
-    volumes:
-      - mysql-data:/var/lib/mysql
-    ports:
-      - ${MYSQL_PORT}:3306
-
+  # Elastic certs setup  
   setup:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     volumes:
@@ -85,8 +46,8 @@ services:
       test: [ "CMD-SHELL", "[ -f config/certs/es01/es01.crt ]" ]
       interval: 1s
       timeout: 5s
-      retries: 120     
-        
+      retries: 120
+
   es01:
     depends_on:
       - setup
@@ -131,6 +92,47 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    restart: always
+    ports: 
+      - ${KESTREL_PORT}:80
+      - ${KESTREL_SSL_PORT}:443
+    depends_on:
+      - db
+      - es01
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT} # debug runs in development mode
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${KESTREL_CERTIFICATES_PASSWORD}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=${KESTREL_CERTIFICATES_PATH}
+      - DOCKER_ConnectionStrings__DefaultConnection=${CONNECTION_STRINGS_DEFAULT_CONNECTION}
+      - DOCKER_BasePaths__SeedDataPath=${SEED_DATA_PATH}
+      - DOCKER_BasePaths__ContentPath=${CONTENT_PATH}
+      - DOCKER_Elastic__User=${ELASTIC_USER}
+      - DOCKER_Elastic__Password=${ELASTIC_PASSWORD}
+      - DOCKER_Jwt__Issuer=${JWT_ISSUER}
+      - DOCKER_Jwt__AdminIssuer=${JWT_ADMIN_ISSUER}
+      - DOCKER_Jwt__Secret=${JWT_SECRET}
+      - DOCKER_Jwt__RefreshTokenTTL=${JWT_REFRESHTOKENTTL}
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+      - ~/.aspnet/https:/https:ro
+  
+  db: 
+    image: mysql:8.0.29
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DB=${MYSQL_DB}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - ${MYSQL_PORT}:3306
+
+
 volumes:
   mysql-data:
   certs:
