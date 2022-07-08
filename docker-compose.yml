@@ -18,9 +18,6 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${KESTREL_CERTIFICATES_PASSWORD}
       - ASPNETCORE_Kestrel__Certificates__Default__Path=${KESTREL_CERTIFICATES_PATH}
-      - DB_HOSTNAME=${DB_HOSTNAME}
-      - DB_PORT=${DB_PORT}
-      - DB_PASSWORD=${DB_PASSWORD}
       - DOCKER_ConnectionStrings__DefaultConnection=${CONNECTION_STRINGS_DEFAULT_CONNECTION}
       - DOCKER_BasePaths__SeedDataPath=${SEED_DATA_PATH}
       - DOCKER_BasePaths__ContentPath=${CONTENT_PATH}
@@ -33,7 +30,7 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
       - ~/.aspnet/https:/https:ro
-      - 
+  
   db: 
     image: mysql:8.0.29
     environment:
