@@ -14,8 +14,10 @@ namespace API.Extensions
             var pool = new SingleNodeConnectionPool(new Uri(config["Elastic:Host"]));
             var user = config["Elastic:User"];
             var password = config["Elastic:Password"];
+            var certificate = config["Elastic:CertificateAuthorities"];
             
             var settings = new ConnectionSettings(pool)
+                .ClientCertificate(certificate)
                 .BasicAuthentication(user, password)
                 .EnableApiVersioningHeader()
                 .ThrowExceptions()

@@ -115,11 +115,13 @@ services:
       - DOCKER_Elastic__Host=${ELASTIC_HOST}
       - DOCKER_Elastic__User=${ELASTIC_USER}
       - DOCKER_Elastic__Password=${ELASTIC_PASSWORD}
+      - DOCKER_Elastic__CertificateAuthorities=certs/ca/ca.rt
       - DOCKER_Jwt__Issuer=${JWT_ISSUER}
       - DOCKER_Jwt__AdminIssuer=${JWT_ADMIN_ISSUER}
       - DOCKER_Jwt__Secret=${JWT_SECRET}
       - DOCKER_Jwt__RefreshTokenTTL=${JWT_REFRESHTOKENTTL}
     volumes:
+      - certs:/usr/share/elasticsearch/config/certs
       - ~/.vsdbg:/remote_debugger:rw
       - ~/.aspnet/https:/https:ro
   
