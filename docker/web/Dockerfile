@@ -23,7 +23,7 @@ COPY . .
 
 RUN dotnet tool install --global dotnet-ef --version 5.0.11
 ENV PATH="${PATH}:/root/.dotnet/tools"
-RUN dotnet ef migrations add ShopInitial -c ShopContext -p Infrastructure -s API -o Data/Migrations
+RUN dotnet ef migrations add ShopFirstMigration -c ShopContext -p Infrastructure -s API -o Data/Migrations
 RUN dotnet restore
 
 RUN dotnet build -c Release -o /ecommerce-shop/build

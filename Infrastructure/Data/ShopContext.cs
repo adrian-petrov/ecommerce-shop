@@ -4,10 +4,15 @@ using Core.Entities.OrderAggregate;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Internal;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Data
 {
@@ -70,6 +75,32 @@ namespace Infrastructure.Data
                 }
                 ((BaseEntity)entity.Entity).UpdatedAt = now;
             }
+        }
+    }
+
+    public class ShopContextFactory : IDesignTimeDbContextFactory<ShopContext>
+    {
+        public ShopContext CreateDbContext(string[] args)
+        {
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../API"))
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{environment}.json", optional: true)
+                .AddEnvironmentVariables("DOCKER_")
+                .Build();
+            // var connectionString = config.GetConnectionString("DefaultConnection");
+            var connectionString = config.GetSection("ConnectionStrings:DefaultConnection").Value;
+
+            var optionsBuilder = new DbContextOptionsBuilder<ShopContext>();
+            optionsBuilder.UseMySql(
+                connectionString,
+                new MySqlServerVersion(new Version(8, 0, 29)),
+                mySqlDbContextOptionsBuilder =>
+                    mySqlDbContextOptionsBuilder
+                        .EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), new List<int>()));
+
+            return new ShopContext(optionsBuilder.Options);
         }
     }
 }

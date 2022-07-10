@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.Json.Serialization;
 using API.Configurations;
 using API.Extensions;
 using API.Filters;
@@ -14,17 +12,14 @@ using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Interfaces;
 using Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -33,13 +28,18 @@ namespace API
 {
     public class Startup
     {
-        private readonly IConfiguration _config;
+        private static IConfigurationRoot Configuration { get; set; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IHostEnvironment environment)
         {
-            _config = configuration;
+            var configBuilder = new ConfigurationBuilder()
+                .SetBasePath(environment.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{environment}.json", optional: true)
+                .AddEnvironmentVariables("DOCKER_");
+            Configuration = configBuilder.Build();
         }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -54,8 +54,8 @@ namespace API
             services.AddAutoMapper(typeof(Startup).Assembly);
 
             // Configuration 
-            services.Configure<BaseUrlOptions>(_config.GetSection(BaseUrlOptions.BaseUrls));
-            services.Configure<BasePathOptions>(_config.GetSection(BasePathOptions.BasePaths));
+            services.Configure<BaseUrlOptions>(Configuration.GetSection(BaseUrlOptions.BaseUrls));
+            services.Configure<BasePathOptions>(Configuration.GetSection(BasePathOptions.BasePaths));
 
             services.AddControllers(options =>
             {
@@ -80,19 +80,17 @@ namespace API
             services.AddDbContext<ShopContext>(opt =>
             {
                 opt.UseMySql(
-                    _config.GetConnectionString("DefaultConnection"),
+                    Configuration.GetConnectionString("DefaultConnection"),
                     new MySqlServerVersion(new Version(8, 0, 29)),
                     mySqlDbContextOptionsBuilder =>
                         mySqlDbContextOptionsBuilder
                             .EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), new List<int>()));
             });
 
-            services.AddElasticsearch(_config);
+            services.AddElasticsearch(Configuration);
             services.AddIdentityServices();
             
-            // Default implementation
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
-            // services.AddAuth(_config);
             
             services.AddCors(opt =>
             {

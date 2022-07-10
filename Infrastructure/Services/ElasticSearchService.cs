@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Core.ElasticsearchModels;
 using Core.Interfaces;
+using Elasticsearch.Net;
 using Nest;
 
 namespace Infrastructure.Services
@@ -24,7 +26,7 @@ namespace Infrastructure.Services
                         .Query(query)
                         .Fields(f => f
                             .Fields(f1 => f1.Brand,
-                                    f2 => f2.Name))
+                                f2 => f2.Name))
                         .Operator(Operator.And)
                         .Fuzziness(Fuzziness.EditDistance(1))
                     ))
@@ -69,5 +71,4 @@ namespace Infrastructure.Services
             await _client.DeleteAsync(request);
         }
     }
-    
 }

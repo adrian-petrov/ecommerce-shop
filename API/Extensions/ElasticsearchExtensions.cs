@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using Core.ElasticsearchModels;
 using Elasticsearch.Net;
 using Microsoft.Extensions.Configuration;
@@ -11,13 +13,18 @@ namespace API.Extensions
     {
         public static void AddElasticsearch(this IServiceCollection services, IConfiguration config)
         {
-            var pool = new SingleNodeConnectionPool(new Uri(config["Elastic:Host"]));
             var user = config["Elastic:User"];
             var password = config["Elastic:Password"];
             var certificate = config["Elastic:CertificateAuthorities"];
-            
+            var host = config["Elastic:Host"];
+            var port = config["Elastic:Port"];
+
+            var pool = new SingleNodeConnectionPool(new Uri($"https://{host}:{port}"));
+            var clientCertificate = new X509Certificate2(certificate);
+
             var settings = new ConnectionSettings(pool)
-                .ClientCertificate(certificate)
+                .ServerCertificateValidationCallback(CertificateValidations.AuthorityIsRoot(clientCertificate))
+                .ClientCertificate(clientCertificate)
                 .BasicAuthentication(user, password)
                 .EnableApiVersioningHeader()
                 .ThrowExceptions()

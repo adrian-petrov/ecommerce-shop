@@ -9,7 +9,7 @@ services:
     user: "0"
     command: >
       bash -c '
-        if [ x${ELASTIC_PASSWORD} == x ]; then
+        if [[ -z ${ELASTIC_PASSWORD} ]]; then
           echo "Set the ELASTIC_PASSWORD environment variable in the .env file";
           exit 1;
         fi;
@@ -38,8 +38,6 @@ services:
         find . -type f -exec chmod 640 \{\} \;;
         echo "Waiting for Elasticsearch availability";
         until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
-        echo "Setting kibana_system password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
         echo "All done!";
       '
     healthcheck:
@@ -56,7 +54,7 @@ services:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata01:/usr/share/elasticsearch/data
     ports:
-      - ${ES_PORT}:9200
+      - ${ELASTIC_PORT}:9200
     environment:
       - node.name=es01
       - cluster.name=${CLUSTER_NAME}
@@ -92,6 +90,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
+      
   api:
     image: api
     build:
@@ -113,9 +112,10 @@ services:
       - DOCKER_BasePaths__SeedDataPath=${SEED_DATA_PATH}
       - DOCKER_BasePaths__ContentPath=${CONTENT_PATH}
       - DOCKER_Elastic__Host=${ELASTIC_HOST}
+      - DOCKER_Elastic__Port=${ELASTIC_PORT}
       - DOCKER_Elastic__User=${ELASTIC_USER}
       - DOCKER_Elastic__Password=${ELASTIC_PASSWORD}
-      - DOCKER_Elastic__CertificateAuthorities=certs/ca/ca.rt
+      - DOCKER_Elastic__CertificateAuthorities=${ELASTIC_CA_PATH}
       - DOCKER_Jwt__Issuer=${JWT_ISSUER}
       - DOCKER_Jwt__AdminIssuer=${JWT_ADMIN_ISSUER}
       - DOCKER_Jwt__Secret=${JWT_SECRET}

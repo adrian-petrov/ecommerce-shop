@@ -1,4 +1,5 @@
-﻿**/.dockerignore
+﻿**/Infrastructure/Data/Migrations/
+**/.dockerignore
 **/.env
 **/.git
 **/.gitignore
