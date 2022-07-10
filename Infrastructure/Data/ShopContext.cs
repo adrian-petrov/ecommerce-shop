@@ -89,9 +89,9 @@ namespace Infrastructure.Data
                 .AddJsonFile($"appsettings.{environment}.json", optional: true)
                 .AddEnvironmentVariables("DOCKER_")
                 .Build();
-            // var connectionString = config.GetConnectionString("DefaultConnection");
-            var connectionString = config.GetSection("ConnectionStrings:DefaultConnection").Value;
-
+            var connectionString = config.GetConnectionString("DefaultConnection");
+            
+            
             var optionsBuilder = new DbContextOptionsBuilder<ShopContext>();
             optionsBuilder.UseMySql(
                 connectionString,
@@ -99,7 +99,7 @@ namespace Infrastructure.Data
                 mySqlDbContextOptionsBuilder =>
                     mySqlDbContextOptionsBuilder
                         .EnableRetryOnFailure(7, TimeSpan.FromSeconds(5), new List<int>()));
-
+    
             return new ShopContext(optionsBuilder.Options);
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using Core.ElasticsearchModels;
 using Elasticsearch.Net;
@@ -54,7 +53,7 @@ namespace API.Extensions
                             .TokenFilters(tf => tf
                                 .Synonym("product_synonym", ps => ps
                                     .Synonyms("t sh, t shi, t shir, t shirt => t-shirt")))
-                        ))  
+                        ))
                     .Map<ElasticSearchProduct>(m => m
                         .Properties(ps => ps
                             .Text(t => t

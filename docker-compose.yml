@@ -134,6 +134,7 @@ services:
       - mysql-data:/var/lib/mysql
     ports:
       - ${MYSQL_PORT}:3306
+    restart: always
 
 
 volumes:
