@@ -111,6 +111,8 @@ services:
       - DOCKER_ConnectionStrings__DefaultConnection=${CONNECTION_STRINGS_DEFAULT_CONNECTION}
       - DOCKER_BasePaths__SeedDataPath=${SEED_DATA_PATH}
       - DOCKER_BasePaths__ContentPath=${CONTENT_PATH}
+      - DOCKER_BaseUrls__ApiBase=${API_BASE}
+      - DOCKER_BaseUrls__ProductsBase=${PRODUCTS_BASE}
       - DOCKER_Elastic__Host=${ELASTIC_HOST}
       - DOCKER_Elastic__Port=${ELASTIC_PORT}
       - DOCKER_Elastic__User=${ELASTIC_USER}
