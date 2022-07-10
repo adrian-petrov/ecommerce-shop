@@ -35,7 +35,6 @@ namespace API
                     var config = 
                         new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json")
-                            // this will replace appsettings variables with env variables set by docker
                             .AddEnvironmentVariables("DOCKER_") 
                             .Build();
                     var seedDataPath = config.GetSection("BasePaths:SeedDataPath").Value;
@@ -54,13 +53,15 @@ namespace API
                         .AsNoTracking()
                         .ToListAsync();
 
+                    var productsBaseUrl = config.GetSection("BaseUrls__ProductsBase");
+                    
                     var elasticProducts = products.Select(p => new ElasticSearchProduct
                     {
                         Id = p.Id,
                         Name = p.Name,
                         Brand = p.Brand,
                         BasePrice = p.BasePrice,
-                        ImageUrl = $"https://localhost:5001/Content/{p.Images.ToList().First().ImageUrl}"
+                        ImageUrl = $"{productsBaseUrl}/{p.Images.ToList().First().ImageUrl}"
                     }).ToList();
                     
                     var bulkIndexResponse = await elasticClient.BulkAsync(b => b

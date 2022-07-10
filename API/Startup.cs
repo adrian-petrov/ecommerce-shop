@@ -100,11 +100,8 @@ namespace API
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()
-                        .WithOrigins("http://adrianpetrov.com",
-                            "https://adrianpetrov.com");
-                    // .WithOrigins("http://localhost:3000",
-                    //     "https://localhost:5001",
-                    //     "https://localhost:5001/api");
+                        .WithOrigins("https://ecommerce-shop.adrianpetrov.com",
+                            "http://ecommerce-shop.adrianpetrov.com");
                 });
             });
         }
