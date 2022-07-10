@@ -98,7 +98,7 @@ namespace Infrastructure.Data
                 new MySqlServerVersion(new Version(8, 0, 29)),
                 mySqlDbContextOptionsBuilder =>
                     mySqlDbContextOptionsBuilder
-                        .EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), new List<int>()));
+                        .EnableRetryOnFailure(7, TimeSpan.FromSeconds(5), new List<int>()));
 
             return new ShopContext(optionsBuilder.Options);
         }

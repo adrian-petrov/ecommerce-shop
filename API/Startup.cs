@@ -84,7 +84,7 @@ namespace API
                     new MySqlServerVersion(new Version(8, 0, 29)),
                     mySqlDbContextOptionsBuilder =>
                         mySqlDbContextOptionsBuilder
-                            .EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), new List<int>()));
+                            .EnableRetryOnFailure(7, TimeSpan.FromSeconds(5), new List<int>()));
             });
 
             services.AddElasticsearch(Configuration);
@@ -100,9 +100,11 @@ namespace API
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()
-                        .WithOrigins("http://localhost:3000",
-                            "https://localhost:5001",
-                            "https://localhost:5001/api"); // Here adding 5001 for Swagger
+                        .WithOrigins("http://adrianpetrov.com",
+                            "https://adrianpetrov.com");
+                    // .WithOrigins("http://localhost:3000",
+                    //     "https://localhost:5001",
+                    //     "https://localhost:5001/api");
                 });
             });
         }
