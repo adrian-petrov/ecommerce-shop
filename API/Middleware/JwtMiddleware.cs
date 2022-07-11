@@ -21,7 +21,7 @@ namespace API.Middleware
             _next = next;
         }
 
-        public Task InvokeAsync(
+        public async Task InvokeAsync(
             HttpContext context,
             IJwtUtils jwtUtils,
             IAccountService accountService)
@@ -33,7 +33,7 @@ namespace API.Middleware
                 else
                     await HandleStoreUserAuthenticationAsync(context, jwtUtils, accountService);
             }, context);
-            return Task.CompletedTask;
+            await _next(context);
         }
 
         private async Task HandleAdminAuthenticationAsync(
@@ -62,8 +62,6 @@ namespace API.Middleware
                 {
                     Message = Constants.AccessTokenNotFound
                 }, serializerOptions);
-
-                return;
             }
 
             if (accessToken != null &&
@@ -81,14 +79,14 @@ namespace API.Middleware
                     {
                         Message = Constants.AccessTokenInvalid
                     }, serializerOptions);
-
-                    return;
                 }
-
-                // accessToken is valid so populate the context with the current user
-                var user = await accountService.GetUserByUsernameAsync(username);
-                context.Items["AdminUser"] = user;
-                context.Items["AccessToken"] = accessToken;
+                else
+                {
+                    // accessToken is valid so populate the context with the current user
+                    var user = await accountService.GetUserByUsernameAsync(username);
+                    context.Items["AdminUser"] = user;
+                    context.Items["AccessToken"] = accessToken;
+                }
             }
 
             await _next(context);
@@ -142,11 +140,13 @@ namespace API.Middleware
 
                     return;
                 }
-
-                // accessToken is valid so populate the context with the current user
-                var user = await accountService.GetUserByUsernameAsync(username);
-                context.Items["User"] = user;
-                context.Items["AccessToken"] = accessToken;
+                else
+                {
+                    // accessToken is valid so populate the context with the current user
+                    var user = await accountService.GetUserByUsernameAsync(username);
+                    context.Items["User"] = user;
+                    context.Items["AccessToken"] = accessToken;
+                }
             }
 
             await _next(context);

@@ -133,6 +133,7 @@ namespace API
             app.UseWhen(
                 context =>
                     !context.Request.Path.StartsWithSegments("/static") ||
+                    !context.Request.Path.StartsWithSegments("/statc/media") ||
                     !context.Request.Path.StartsWithSegments("/Content"),
                 builder => builder.UseMiddleware<JwtMiddleware>());
 
