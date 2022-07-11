@@ -6,33 +6,29 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Core.Entities.Identity;
+using Infrastructure.Configurations;
 using Infrastructure.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure
 {
     public class JwtUtils : IJwtUtils
     {
-        private readonly IConfiguration _config;
-        private readonly ILogger<JwtUtils> _logger;
+        private readonly JwtOptions _jwtOptions;
 
-        public JwtUtils(
-            IConfiguration config,
-            ILogger<JwtUtils> logger)
+        public JwtUtils(IOptions<JwtOptions> jwtOptions)
         {
-            _config = config;
-            _logger = logger;
+            _jwtOptions = jwtOptions.Value;
         }
 
         public string GenerateJwtToken(List<Claim> claims)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Secret));
             var adminClaim = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role && c.Value == "Admin");
             var isAdmin = adminClaim != null;
-            var issuer = isAdmin ? _config["Jwt:AdminIssuer"] : _config["Jwt:Issuer"];
-            
+            var issuer = isAdmin ? _jwtOptions.AdminIssuer : _jwtOptions.Issuer;
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -68,9 +64,9 @@ namespace Infrastructure
             if (token == null)
                 return null;
 
-            var key = Encoding.UTF8.GetBytes(_config["Jwt:Secret"]);
-            var issuer = userIsAdmin ? _config["Jwt:AdminIssuer"] : _config["Jwt:Issuer"];
-            
+            var key = Encoding.UTF8.GetBytes(_jwtOptions.Secret);
+            var issuer = userIsAdmin ? _jwtOptions.AdminIssuer : _jwtOptions.Issuer;
+
             var tokenHandler = new JwtSecurityTokenHandler();
             try
             {
@@ -95,6 +91,5 @@ namespace Infrastructure
                 return null;
             }
         }
-        
     }
 }

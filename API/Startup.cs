@@ -9,6 +9,7 @@ using API.Middleware;
 using API.ModelBinders;
 using Core.Interfaces;
 using Infrastructure;
+using Infrastructure.Configurations;
 using Infrastructure.Data;
 using Infrastructure.Interfaces;
 using Infrastructure.Services;
@@ -43,6 +44,7 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // General Services
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -50,12 +52,12 @@ namespace API
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IElasticSearchService, ElasticSearchService>();
-
             services.AddAutoMapper(typeof(Startup).Assembly);
 
             // Configuration 
             services.Configure<BaseUrlOptions>(Configuration.GetSection(BaseUrlOptions.BaseUrls));
             services.Configure<BasePathOptions>(Configuration.GetSection(BasePathOptions.BasePaths));
+            services.Configure<JwtOptions>(Configuration.GetSection(JwtOptions.Jwt));
 
             services.AddControllers(options =>
             {

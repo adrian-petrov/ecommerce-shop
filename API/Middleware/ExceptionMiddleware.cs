@@ -46,17 +46,11 @@ namespace API.Middleware
                     _ => (int)HttpStatusCode.InternalServerError
                 };
 
-                _logger.LogInformation($"InnerException: {ex.InnerException?.Message}");
-                _logger.LogInformation("=============================================");
-                _logger.LogInformation($"InnerException: {ex.InnerException?.StackTrace}");
-                
                 var exceptionMessage = GetExceptionMessage(ex);
                 if (exceptionMessage == Constants.RefreshTokenInvalid)
-                {
                     response.Cookies.Delete(Constants.RefreshTokenCookie);
-                }
-                
-                var serializerOptions = new JsonSerializerOptions{ PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
+
+                var serializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 await response.WriteAsJsonAsync(new
                 {
                     Message = exceptionMessage
@@ -70,13 +64,15 @@ namespace API.Middleware
             var innerException = ex.InnerException;
 
             if (innerException is not MySqlException dbException) return message;
-            
+
             message = dbException.ErrorCode switch
             {
                 MySqlErrorCode.DuplicateKeyEntry => "Duplicate Key Entry",
                 MySqlErrorCode.DuplicateKey => "There is already a key with the given values",
-                MySqlErrorCode.RowIsReferenced => "Cannot delete or update a parent row: a foreign key constraint fails",
-                MySqlErrorCode.RowIsReferenced2 => "Cannot delete or update a parent row: a foreign key constraint fails",
+                MySqlErrorCode.RowIsReferenced =>
+                    "Cannot delete or update a parent row: a foreign key constraint fails",
+                MySqlErrorCode.RowIsReferenced2 =>
+                    "Cannot delete or update a parent row: a foreign key constraint fails",
                 _ => "Something went wrong during the database operation"
             };
 
