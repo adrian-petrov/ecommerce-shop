@@ -23,12 +23,7 @@ baseInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (
-      error.response.status === 401 &&
-      (error.response.data.message === AuthExceptions.ACCESS_TOKEN_NOT_FOUND ||
-        error.response.data.message === AuthExceptions.ACCESS_TOKEN_INVALID) &&
-      !originalRequest._retry
-    ) {
+    if (error.response.status === 403 && !originalRequest._retry) {
       return getRefreshToken().then((res) => {
         setAccessToken(res.data.accessToken);
         originalRequest._retry = true;
@@ -38,9 +33,9 @@ baseInstance.interceptors.response.use(
     // refresh token has expired or has been revoked
     if (
       error.response.status === 401 &&
-      error.response.data.message === AuthExceptions.REFRESH_TOKEN_INVALID
+      error.response.data.message === AuthExceptions.ACCESS_TOKEN_INVALID
     ) {
-      window.location.href = '/authenticate';
+      window.history.pushState('', '', '/authenticate');
     }
     return Promise.reject(error);
   },

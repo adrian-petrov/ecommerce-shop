@@ -35,12 +35,12 @@ namespace API
         {
             var configBuilder = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment}.json", optional: true)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile($"appsettings.{environment}.json", true)
                 .AddEnvironmentVariables("DOCKER_");
             Configuration = configBuilder.Build();
         }
-        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -62,10 +62,10 @@ namespace API
             services.AddControllers(options =>
             {
                 options.Filters.Add<OperationCancelledExceptionFilter>();
-                options.Filters.Add<DisableFormValueModelBindingAttribute>(); 
+                options.Filters.Add<DisableFormValueModelBindingAttribute>();
                 options.ModelBinderProviders.Insert(0, new JsonQueryBinderProvider());
             });
-            
+
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -91,9 +91,9 @@ namespace API
 
             services.AddElasticsearch(Configuration);
             services.AddIdentityServices();
-            
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
-            
+
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
@@ -128,8 +128,13 @@ namespace API
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-            
-            app.UseMiddleware<JwtMiddleware>();
+
+            // JWT Middleware
+            app.UseWhen(
+                context => !context.Request.Path.StartsWithSegments("/static"),
+                builder => builder.UseMiddleware<JwtMiddleware>());
+
+            // app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
             app.UseRouting();
@@ -144,11 +149,7 @@ namespace API
             app.UseSpaStaticFiles();
             app.UseCors("CorsPolicy");
             app.UseResponseCaching();
-            
-            // not using default auth
-            // app.UseAuthentication();
-            // app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             app.UseSpa(spa =>
             {
