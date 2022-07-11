@@ -46,6 +46,9 @@ namespace API.Middleware
                     _ => (int)HttpStatusCode.InternalServerError
                 };
 
+                _logger.LogInformation($"InnerException: {ex.InnerException}");
+                _logger.LogInformation($"InnerException: {ex.StackTrace}");
+                
                 var exceptionMessage = GetExceptionMessage(ex);
                 if (exceptionMessage == Constants.RefreshTokenInvalid)
                 {

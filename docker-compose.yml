@@ -122,6 +122,7 @@ services:
       - DOCKER_Jwt__AdminIssuer=${JWT_ADMIN_ISSUER}
       - DOCKER_Jwt__Secret=${JWT_SECRET}
       - DOCKER_Jwt__RefreshTokenTTL=${JWT_REFRESHTOKENTTL}
+      - DOCKER_Logging__LogLevel__Default=${LOG_LEVEL}
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - ~/.vsdbg:/remote_debugger:rw
