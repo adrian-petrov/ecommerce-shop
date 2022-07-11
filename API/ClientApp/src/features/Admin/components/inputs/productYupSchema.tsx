@@ -22,7 +22,7 @@ export const schema = yup.object().shape({
     .test(
       'Colour, gender, and relevant sizes are selected',
       'Please select the gender, colour, and at least one of the following: Size, Waist, or Length',
-      (value, context) =>
+      (value) =>
         value !== undefined &&
         value.includes(1) &&
         value.includes(2) &&

@@ -6,7 +6,6 @@ import {
   DeleteWithConfirmButton,
   ImageField,
   ImageInput,
-  required,
   SaveButton,
   SelectInput,
   TextInput,

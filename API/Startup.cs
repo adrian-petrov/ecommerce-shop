@@ -130,15 +130,6 @@ namespace API
             }
 
             // JWT Middleware
-            app.UseWhen(context =>
-                    !context.Request.Path.StartsWithSegments("/static") ||
-                    !context.Request.Path.StartsWithSegments("/statc/media") ||
-                    !context.Request.Path.StartsWithSegments("/Content"),
-                builder => builder.UseMiddleware<JwtMiddleware>());
-
-            app.UseMiddleware<ExceptionMiddleware>();
-            app.UseHttpsRedirection();
-            app.UseRouting();
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -146,6 +137,11 @@ namespace API
                 RequestPath = "/content"
             });
             app.UseSpaStaticFiles();
+            app.UseMiddleware<JwtMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseHttpsRedirection();
+            app.UseRouting();
+
             app.UseCors("CorsPolicy");
             app.UseResponseCaching();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

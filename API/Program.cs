@@ -53,7 +53,7 @@ namespace API
                         .AsNoTracking()
                         .ToListAsync();
 
-                    var productsBaseUrl = config.GetSection("BaseUrls__ProductsBase");
+                    var productsBaseUrl = config.GetSection("BaseUrls:ProductsBase").Value;
                     
                     var elasticProducts = products.Select(p => new ElasticSearchProduct
                     {
