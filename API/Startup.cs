@@ -134,13 +134,10 @@ namespace API
                 context => !context.Request.Path.StartsWithSegments("/static"),
                 builder => builder.UseMiddleware<JwtMiddleware>());
 
-            // app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
             app.UseRouting();
-            // This is for wwwroot
             app.UseStaticFiles();
-            // Custom file provider
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
@@ -149,7 +146,6 @@ namespace API
             app.UseSpaStaticFiles();
             app.UseCors("CorsPolicy");
             app.UseResponseCaching();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             app.UseSpa(spa =>
             {

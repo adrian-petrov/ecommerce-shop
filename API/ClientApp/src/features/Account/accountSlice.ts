@@ -114,6 +114,9 @@ const accountSlice = createSlice({
     resetSignInStatus: (state) => {
       state.signInStatus = AsyncStatus.Idle;
     },
+    resetRefreshTokenStatus: (state) => {
+      state.refreshTokenStatus = AsyncStatus.Idle;
+    },
     resetUpdateUserDetailsStatus: (state) => {
       state.updateUserDetailsStatus = AsyncStatus.Idle;
     },
@@ -330,6 +333,7 @@ export const {
   setBillingAddress,
   resetBillingAddress,
   resetSignInStatus,
+  resetRefreshTokenStatus,
   resetUpdateUserDetailsStatus,
   resetUpdateEmailAddressStatus,
   resetUpdatePasswordStatus,

@@ -2,6 +2,8 @@ import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
+  resetRefreshTokenStatus,
+  resetSignInStatus,
   selectRefreshTokenStatus,
   selectSignInStatus,
   selectSignUpStatus,
@@ -26,14 +28,19 @@ export default function PrivateRoute({
   const refreshTokenStatus = useAppSelector(selectRefreshTokenStatus);
   const signInStatus = useAppSelector(selectSignInStatus);
   const signUpStatus = useAppSelector(selectSignUpStatus);
+  const location = useLocation();
 
   const dispatch = useAppDispatch();
-  const location = useLocation();
 
   React.useEffect(() => {
     if (user === null) {
       dispatch(refreshToken());
     }
+
+    return () => {
+      dispatch(resetSignInStatus());
+      dispatch(resetRefreshTokenStatus());
+    };
   }, []);
 
   if (
@@ -56,7 +63,7 @@ export default function PrivateRoute({
         }}
         replace
         state={{
-          from: location && location.pathname,
+          from: location.pathname,
         }}
       />
     );

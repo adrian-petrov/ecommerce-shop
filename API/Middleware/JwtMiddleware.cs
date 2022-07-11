@@ -21,21 +21,19 @@ namespace API.Middleware
             _next = next;
         }
 
-        public async Task InvokeAsync(
+        public Task InvokeAsync(
             HttpContext context,
             IJwtUtils jwtUtils,
             IAccountService accountService)
         {
-            if (context.Request.Path.Value == null)
-                return;
-
-            if (context.Request.Path.Value.StartsWith("/api/admin"))
+            context.Response.OnStarting(async (state) =>
             {
-                await HandleAdminAuthenticationAsync(context, jwtUtils, accountService);
-                return;
-            }
-
-            await HandleStoreUserAuthenticationAsync(context, jwtUtils, accountService);
+                if (context.Request.Path.StartsWithSegments("/api/admin"))
+                    await HandleAdminAuthenticationAsync(context, jwtUtils, accountService);
+                else
+                    await HandleStoreUserAuthenticationAsync(context, jwtUtils, accountService);
+            }, context);
+            return Task.CompletedTask;
         }
 
         private async Task HandleAdminAuthenticationAsync(
@@ -46,9 +44,6 @@ namespace API.Middleware
             var accessToken = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             var refreshToken = context.Request.Cookies[Constants.AdminRefreshTokenCookie];
             var serializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-
-            if (context.Request.Path.Value == null)
-                return;
 
             // user is signed in but accessToken has been erased from memory
             // the client will intercept the AccessTokenNotFound response and 
@@ -108,16 +103,12 @@ namespace API.Middleware
             var refreshToken = context.Request.Cookies[Constants.RefreshTokenCookie];
             var serializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-            if (context.Request.Path.Value == null)
-                return;
-
             // user is signed in but accessToken has been erased from memory
             // the client will intercept the AccessTokenNotFound response and 
             // attempt to refresh the token
             if (
                 accessToken == null &&
                 refreshToken != null &&
-                // skip if the user is trying to refresh or revoke the token
                 !context.Request.Path.StartsWithSegments("/api/account/refresh-token") &&
                 !context.Request.Path.StartsWithSegments("/api/account/revoke-token") &&
                 !context.Request.Path.StartsWithSegments("/api/account/authenticate"))
@@ -125,16 +116,14 @@ namespace API.Middleware
                 var file = Path.Combine(Directory.GetCurrentDirectory(), "ClientApp/build/index.html");
                 var fileInfo = new FileInfo(file);
 
-                if (!context.Response.HasStarted)
-                {
-                    context.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    context.Response.ContentType = "text/html";
-                }
+                context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                context.Response.ContentType = "text/html";
 
                 await context.Response.SendFileAsync(new PhysicalFileInfo(fileInfo));
                 await context.Response.CompleteAsync();
             }
 
+            // user is signed in and has both tokens 
             if (accessToken != null &&
                 refreshToken != null &&
                 !context.Request.Path.StartsWithSegments("/api/account/refresh-token") &&

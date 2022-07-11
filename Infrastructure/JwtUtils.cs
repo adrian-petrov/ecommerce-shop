@@ -8,6 +8,7 @@ using System.Text;
 using Core.Entities.Identity;
 using Infrastructure.Configurations;
 using Infrastructure.Interfaces;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -15,10 +16,12 @@ namespace Infrastructure
 {
     public class JwtUtils : IJwtUtils
     {
+        private readonly ILogger<JwtUtils> _logger;
         private readonly JwtOptions _jwtOptions;
 
-        public JwtUtils(IOptions<JwtOptions> jwtOptions)
+        public JwtUtils(IOptions<JwtOptions> jwtOptions, ILogger<JwtUtils> logger)
         {
+            _logger = logger;
             _jwtOptions = jwtOptions.Value;
         }
 
@@ -35,7 +38,7 @@ namespace Infrastructure
                 Expires = DateTime.Now.AddMinutes(5),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature),
                 Issuer = issuer,
-                Audience = issuer
+                Audience = issuer,
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -82,12 +85,19 @@ namespace Infrastructure
                 }, out var validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var username = jwtToken.Claims.First(x => x.Type == "Name").Value;
+                var username = jwtToken.Claims.First(x => x.Type == "name").Value;
 
                 return username;
             }
-            catch
+            catch (Exception e)
             {
+                _logger.LogInformation(e.Message);   
+                _logger.LogInformation("=====================");   
+                _logger.LogInformation(e.StackTrace);   
+                _logger.LogInformation("=====================");   
+                _logger.LogInformation(e.InnerException?.StackTrace);   
+                _logger.LogInformation("=====================");   
+
                 return null;
             }
         }
