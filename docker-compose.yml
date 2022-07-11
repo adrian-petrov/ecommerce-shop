@@ -104,7 +104,7 @@ services:
       - db
       - es01
     environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT} # debug runs in development mode
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${KESTREL_CERTIFICATES_PASSWORD}
       - ASPNETCORE_Kestrel__Certificates__Default__Path=${KESTREL_CERTIFICATES_PATH}
