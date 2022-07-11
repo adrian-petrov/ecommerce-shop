@@ -130,8 +130,7 @@ namespace API
             });
 
             // JWT Middleware
-            app.UseWhen(
-                context =>
+            app.UseWhen(context =>
                     !context.Request.Path.StartsWithSegments("/static") ||
                     !context.Request.Path.StartsWithSegments("/statc/media") ||
                     !context.Request.Path.StartsWithSegments("/Content"),

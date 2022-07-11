@@ -33,7 +33,9 @@ namespace API.Middleware
                 else
                     await HandleStoreUserAuthenticationAsync(context, jwtUtils, accountService);
             }, context);
-            await _next(context);
+            
+            if (!context.Response.HasStarted)
+                await _next(context);
         }
 
         private async Task HandleAdminAuthenticationAsync(
@@ -92,7 +94,7 @@ namespace API.Middleware
             await _next(context);
         }
 
-        private async Task HandleStoreUserAuthenticationAsync(
+        private static async Task HandleStoreUserAuthenticationAsync(
             HttpContext context,
             IJwtUtils jwtUtils,
             IAccountService accountService)
@@ -114,11 +116,14 @@ namespace API.Middleware
                 var file = Path.Combine(Directory.GetCurrentDirectory(), "ClientApp/build/index.html");
                 var fileInfo = new FileInfo(file);
 
-                context.Response.StatusCode = StatusCodes.Status403Forbidden;
-                context.Response.ContentType = "text/html";
+                if (!context.Response.HasStarted)
+                {
+                    context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    context.Response.ContentType = "text/html";
 
-                await context.Response.SendFileAsync(new PhysicalFileInfo(fileInfo));
-                await context.Response.CompleteAsync();
+                    await context.Response.SendFileAsync(new PhysicalFileInfo(fileInfo));
+                    await context.Response.CompleteAsync();
+                }
             }
 
             // user is signed in and has both tokens 
@@ -137,8 +142,6 @@ namespace API.Middleware
                     {
                         Message = Constants.AccessTokenInvalid
                     }, serializerOptions);
-
-                    return;
                 }
                 else
                 {
@@ -148,8 +151,6 @@ namespace API.Middleware
                     context.Items["AccessToken"] = accessToken;
                 }
             }
-
-            await _next(context);
         }
     }
 }
