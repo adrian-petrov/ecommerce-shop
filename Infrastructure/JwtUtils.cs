@@ -24,6 +24,9 @@ namespace Infrastructure
         public string GenerateJwtToken(List<Claim> claims)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"]));
+            Console.WriteLine("========================================");
+            Console.WriteLine($"The key is: {key}");
+            Console.WriteLine("========================================");
             var adminClaim = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role && c.Value == "Admin");
             var isAdmin = adminClaim != null;
             var issuer = isAdmin ? _config["Jwt:AdminIssuer"] : _config["Jwt:Issuer"];
