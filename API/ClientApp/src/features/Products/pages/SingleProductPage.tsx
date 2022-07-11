@@ -148,14 +148,14 @@ export default function SingleProductPage() {
   return (
     <Container>
       <Row>
-        <Col>
+        <Col md={12} lg={6}>
           <ProductImageContainer>
             {currentProduct && (
               <img src={currentProduct.imageUrl} alt="Product image" />
             )}
           </ProductImageContainer>
         </Col>
-        <Col>
+        <Col md={12} lg={6}>
           {currentProduct && currentProduct.product && (
             <ProductDetailsContainer>
               <h1>{currentProduct.product.name}</h1>

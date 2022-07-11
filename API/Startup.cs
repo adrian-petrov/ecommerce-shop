@@ -131,7 +131,9 @@ namespace API
 
             // JWT Middleware
             app.UseWhen(
-                context => !context.Request.Path.StartsWithSegments("/static"),
+                context =>
+                    !context.Request.Path.StartsWithSegments("/static") ||
+                    !context.Request.Path.StartsWithSegments("/Content"),
                 builder => builder.UseMiddleware<JwtMiddleware>());
 
             app.UseMiddleware<ExceptionMiddleware>();
