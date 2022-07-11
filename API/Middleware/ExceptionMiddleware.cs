@@ -47,7 +47,10 @@ namespace API.Middleware
                 };
 
                 var exceptionMessage = GetExceptionMessage(ex);
-                if (exceptionMessage == Constants.RefreshTokenInvalid)
+
+                if (
+                    exceptionMessage == Constants.RefreshTokenInvalid &&
+                    !context.Response.HasStarted)
                     response.Cookies.Delete(Constants.RefreshTokenCookie);
 
                 var serializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };

@@ -26,19 +26,16 @@ namespace API.Middleware
             IJwtUtils jwtUtils,
             IAccountService accountService)
         {
-            context.Response.OnStarting(async (state) =>
-            {
-                if (context.Request.Path.StartsWithSegments("/api/admin"))
-                    await HandleAdminAuthenticationAsync(context, jwtUtils, accountService);
-                else
-                    await HandleStoreUserAuthenticationAsync(context, jwtUtils, accountService);
-            }, context);
-            
+            if (context.Request.Path.StartsWithSegments("/api/admin"))
+                await HandleAdminAuthenticationAsync(context, jwtUtils, accountService);
+            else
+                await HandleStoreUserAuthenticationAsync(context, jwtUtils, accountService);
+
             if (!context.Response.HasStarted)
                 await _next(context);
         }
 
-        private async Task HandleAdminAuthenticationAsync(
+        private static async Task HandleAdminAuthenticationAsync(
             HttpContext context,
             IJwtUtils jwtUtils,
             IAccountService accountService)
@@ -90,8 +87,6 @@ namespace API.Middleware
                     context.Items["AccessToken"] = accessToken;
                 }
             }
-
-            await _next(context);
         }
 
         private static async Task HandleStoreUserAuthenticationAsync(
@@ -120,10 +115,10 @@ namespace API.Middleware
                 {
                     context.Response.StatusCode = StatusCodes.Status403Forbidden;
                     context.Response.ContentType = "text/html";
-
-                    await context.Response.SendFileAsync(new PhysicalFileInfo(fileInfo));
-                    await context.Response.CompleteAsync();
                 }
+
+                await context.Response.SendFileAsync(new PhysicalFileInfo(fileInfo));
+                await context.Response.CompleteAsync();
             }
 
             // user is signed in and has both tokens 
