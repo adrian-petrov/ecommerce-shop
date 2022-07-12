@@ -129,7 +129,6 @@ namespace API
                 app.UseExceptionHandler("/error");
             }
 
-            // JWT Middleware
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -141,7 +140,6 @@ namespace API
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
             app.UseRouting();
-
             app.UseCors("CorsPolicy");
             app.UseResponseCaching();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

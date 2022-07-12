@@ -33,10 +33,8 @@ baseInstance.interceptors.response.use(
     // refresh token has expired or has been revoked
     if (
       error.response.status === 401 &&
-      error.response.data.message === AuthExceptions.ACCESS_TOKEN_INVALID &&
-      !originalRequest._retry
+      error.response.data.message === AuthExceptions.ACCESS_TOKEN_INVALID
     ) {
-      originalRequest._retry = true;
       window.location.href = '/authenticate';
     }
     return Promise.reject(error);
