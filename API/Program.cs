@@ -30,11 +30,13 @@ namespace API
                     // Migration
                     var context = services.GetRequiredService<ShopContext>();
                     await context.Database.MigrateAsync();
-
+                    
                     // Seed database
+                    var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
                     var config = 
                         new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json")
+                            .AddJsonFile($"appsettings.{env}.json", true)
                             .AddEnvironmentVariables("DOCKER_") 
                             .Build();
                     var seedDataPath = config.GetSection("BasePaths:SeedDataPath").Value;
@@ -47,34 +49,34 @@ namespace API
                     await ShopContextSeed.SeedRolesAndDefaultUsers(userManager, roleManager);
                     
                     // Seed Elasticsearch
-                    var elasticClient = services.GetRequiredService<IElasticClient>();
-                    var products = await context.Products
-                        .Include(p => p.Images)
-                        .AsNoTracking()
-                        .ToListAsync();
-
-                    var productsBaseUrl = config.GetSection("BaseUrls:ProductsBase").Value;
-                    
-                    var elasticProducts = products.Select(p => new ElasticSearchProduct
-                    {
-                        Id = p.Id,
-                        Name = p.Name,
-                        Brand = p.Brand,
-                        BasePrice = p.BasePrice,
-                        ImageUrl = $"{productsBaseUrl}/{p.Images.ToList().First().ImageUrl}"
-                    }).ToList();
-                    
-                    var bulkIndexResponse = await elasticClient.BulkAsync(b => b
-                        .Index("products")
-                        .IndexMany(elasticProducts));
-
-                    if (bulkIndexResponse.Errors)
-                    {
-                        foreach (var item in bulkIndexResponse.ItemsWithErrors)
-                        {
-                            Console.WriteLine($"Failed to index document {item.Id}: {item.Error}");
-                        }
-                    }
+                    // var elasticClient = services.GetRequiredService<IElasticClient>();
+                    // var products = await context.Products
+                    //     .Include(p => p.Images)
+                    //     .AsNoTracking()
+                    //     .ToListAsync();
+                    //
+                    // var productsBaseUrl = config.GetSection("BaseUrls:ProductsBase").Value;
+                    //
+                    // var elasticProducts = products.Select(p => new ElasticSearchProduct
+                    // {
+                    //     Id = p.Id,
+                    //     Name = p.Name,
+                    //     Brand = p.Brand,
+                    //     BasePrice = p.BasePrice,
+                    //     ImageUrl = $"{productsBaseUrl}/{p.Images.ToList().First().ImageUrl}"
+                    // }).ToList();
+                    //
+                    // var bulkIndexResponse = await elasticClient.BulkAsync(b => b
+                    //     .Index("products")
+                    //     .IndexMany(elasticProducts));
+                    //
+                    // if (bulkIndexResponse.Errors)
+                    // {
+                    //     foreach (var item in bulkIndexResponse.ItemsWithErrors)
+                    //     {
+                    //         Console.WriteLine($"Failed to index document {item.Id}: {item.Error}");
+                    //     }
+                    // }
                 }
                 catch (Exception ex)
                 {

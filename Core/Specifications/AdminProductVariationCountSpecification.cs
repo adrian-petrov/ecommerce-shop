@@ -9,10 +9,10 @@ namespace Core.Specifications
         public AdminProductVariationCountSpecification(IReadOnlyDictionary<string, string> filter)
         {
             if (filter.ContainsKey("brand"))
-                Query.Where(p => p.Product.Brand.Contains(filter["brand"]));
+                Query.Where(p => p.Product.ProductBrandId == int.Parse(filter["brand"]));
 
             if (filter.ContainsKey("type"))
-                Query.Where(p => p.Product.Type.Contains(filter["type"]));
+                Query.Where(p => p.Product.ProductTypeId == int.Parse(filter["type"]));
             
             if (filter.ContainsKey("name"))
                 Query.Where(p => p.Product.Name.Contains(filter["name"]));

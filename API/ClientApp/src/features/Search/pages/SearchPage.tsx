@@ -51,7 +51,7 @@ export default function SearchPage(): ReactElement {
           pages={pages}
           handlePageChange={handlePageChange}
           renderItem={(product) => (
-            <StyledCol xs={12} md={4} key={product.id} className="mb-5">
+            <StyledCol xs={12} md={6} lg={4} key={product.id} className="mb-5">
               <ProductCard
                 to={product.id}
                 name={product.name}

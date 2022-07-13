@@ -61,8 +61,9 @@ export const schema = yup.object().shape({
         message: 'The image size must be less than 10MB',
         test: (value) => {
           const img = value as unknown as TAdminImage;
+          const newImage = Object.prototype.hasOwnProperty.call(img, 'rawFile');
 
-          return img.rawFile!.size <= 10000000;
+          return newImage ? img.rawFile!.size <= 10000000 : true;
         },
       }),
     )

@@ -3,7 +3,7 @@ import { AuthExceptions } from '../../Account/types';
 import inMemoryJwtService from '../authProvider/inMemoryJwtService';
 
 export const adminInstance = axios.create({
-  baseURL: '/api/admin',
+  baseURL: '/admin',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMediaQuery, Theme } from '@mui/material';
+import { Theme, useMediaQuery } from '@mui/material';
 import { Datagrid, List, NumberField, TextField } from 'react-admin';
 import FilterSidebar from '../products/FilterSidebar';
 import { productFilters } from '../products/ProductList';

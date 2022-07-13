@@ -9,10 +9,10 @@ namespace Core.Specifications
         public AdminProductVariationSpecification(AdminListQueryParams listQueryParams)
         {
             if (listQueryParams.Filter.ContainsKey("brand"))
-                Query.Where(p => p.Product.Brand.Contains(listQueryParams.Filter["brand"]));
+                Query.Where(p => p.Product.ProductBrandId == int.Parse(listQueryParams.Filter["brand"]));
 
             if (listQueryParams.Filter.ContainsKey("type"))
-                Query.Where(p => p.Product.Type.Contains(listQueryParams.Filter["type"]));
+                Query.Where(p => p.Product.ProductTypeId == int.Parse(listQueryParams.Filter["type"]));
             
             if (listQueryParams.Filter.ContainsKey("name"))
                 Query.Where(p => p.Product.Name.Contains(listQueryParams.Filter["name"]));

@@ -26,7 +26,7 @@ namespace API.Controllers
         private readonly IGenericRepository<Image> _imageRepository;
         private readonly IGenericRepository<Option> _optionRepository;
         private readonly IGenericRepository<ProductOption> _productOptionRepository;
-        private readonly IElasticSearchService _elasticSearchService;
+        // private readonly IElasticSearchService _elasticSearchService;
         private readonly BasePathOptions _basePathOptions;
         private readonly IMapper _mapper;
 
@@ -38,7 +38,7 @@ namespace API.Controllers
             IGenericRepository<Image> imageRepository,
             IGenericRepository<Option> optionRepository,
             IGenericRepository<ProductOption> productOptionRepository,
-            IElasticSearchService elasticSearchService,
+            // IElasticSearchService elasticSearchService,
             IMapper mapper,
             IOptions<BasePathOptions> basePathOptions)
         {
@@ -50,7 +50,7 @@ namespace API.Controllers
             _imageRepository = imageRepository;
             _optionRepository = optionRepository;
             _productOptionRepository = productOptionRepository;
-            _elasticSearchService = elasticSearchService;
+            // _elasticSearchService = elasticSearchService;
             _basePathOptions = basePathOptions.Value;
         }
 
@@ -150,8 +150,8 @@ namespace API.Controllers
             await _productRepository.UpdateAsync(newProduct);
             
             // index the new product
-            var elasticSearchProduct = _mapper.Map<ElasticSearchProduct>(newProduct);
-            await _elasticSearchService.IndexProduct(elasticSearchProduct);
+            // var elasticSearchProduct = _mapper.Map<ElasticSearchProduct>(newProduct);
+            // await _elasticSearchService.IndexProduct(elasticSearchProduct);
             
             return new AdminOneResponseDto<AdminProductResponseDto>
             {
@@ -360,8 +360,8 @@ namespace API.Controllers
             await _productRepository.DeleteAsync(product);
             
             // Remove prodcut from index
-            var elasticSearchProduct = _mapper.Map<ElasticSearchProduct>(product);
-            await _elasticSearchService.IndexProduct(elasticSearchProduct);
+            // var elasticSearchProduct = _mapper.Map<ElasticSearchProduct>(product);
+            // await _elasticSearchService.IndexProduct(elasticSearchProduct);
 
             var dto = _mapper.Map<ProductResponseDto>(product);
 

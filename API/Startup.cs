@@ -30,15 +30,17 @@ namespace API
     public class Startup
     {
         private static IConfigurationRoot Configuration { get; set; }
+        private static IHostEnvironment CurrentEnvironment { get; set; }
 
         public Startup(IHostEnvironment environment)
         {
             var configBuilder = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{environment}.json", true)
+                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true)
                 .AddEnvironmentVariables("DOCKER_");
             Configuration = configBuilder.Build();
+            CurrentEnvironment = environment;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -51,7 +53,7 @@ namespace API
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IBasketService, BasketService>();
-            services.AddScoped<IElasticSearchService, ElasticSearchService>();
+            // services.AddScoped<IElasticSearchService, ElasticSearchService>();
             services.AddAutoMapper(typeof(Startup).Assembly);
 
             // Configuration 
@@ -89,7 +91,7 @@ namespace API
                             .EnableRetryOnFailure(7, TimeSpan.FromSeconds(5), new List<int>()));
             });
 
-            services.AddElasticsearch(Configuration);
+            // services.AddElasticsearch(Configuration);
             services.AddIdentityServices();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
@@ -98,12 +100,15 @@ namespace API
             {
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
+                    var origin = CurrentEnvironment.IsDevelopment()
+                        ? "http://localhost:3000"
+                        : "https://ecommerce-shop.adrianpetrov.com";
+                    
                     policy
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()
-                        .WithOrigins("https://ecommerce-shop.adrianpetrov.com",
-                            "http://ecommerce-shop.adrianpetrov.com");
+                        .WithOrigins(origin);
                 });
             });
         }
@@ -111,12 +116,6 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // For nginx reverse proxy
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -127,6 +126,12 @@ namespace API
             else
             {
                 app.UseExceptionHandler("/error");
+                app.UseHttpsRedirection();
+                // For nginx reverse proxy
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
             }
 
             app.UseStaticFiles();
@@ -138,7 +143,6 @@ namespace API
             app.UseSpaStaticFiles();
             app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseResponseCaching();
