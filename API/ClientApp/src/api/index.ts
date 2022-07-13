@@ -5,7 +5,7 @@ import {
 } from '../features/Account/types';
 
 export const baseInstance = axios.create({
-  baseURL: '/',
+  baseURL: '/api',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
