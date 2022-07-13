@@ -110,13 +110,13 @@ namespace API.Middleware
             {
                 var file = Path.Combine(Directory.GetCurrentDirectory(), "ClientApp/build/index.html");
                 var fileInfo = new FileInfo(file);
-                
+
                 if (!context.Response.HasStarted)
                 {
                     context.Response.StatusCode = StatusCodes.Status403Forbidden;
                     context.Response.ContentType = "text/html";
                 }
-                
+
                 await context.Response.SendFileAsync(new PhysicalFileInfo(fileInfo));
                 await context.Response.CompleteAsync();
             }

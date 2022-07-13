@@ -40,6 +40,7 @@ namespace API
                 .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true)
                 .AddEnvironmentVariables("DOCKER_");
             Configuration = configBuilder.Build();
+
             CurrentEnvironment = environment;
         }
 
@@ -103,7 +104,7 @@ namespace API
                     var origin = CurrentEnvironment.IsDevelopment()
                         ? "http://localhost:3000"
                         : "https://ecommerce-shop.adrianpetrov.com";
-                    
+
                     policy
                         .AllowAnyHeader()
                         .AllowAnyMethod()
