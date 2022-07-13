@@ -53,7 +53,7 @@ namespace API
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IBasketService, BasketService>();
-            // services.AddScoped<IElasticSearchService, ElasticSearchService>();
+            services.AddScoped<IElasticSearchService, ElasticSearchService>();
             services.AddAutoMapper(typeof(Startup).Assembly);
 
             // Configuration 
@@ -91,7 +91,7 @@ namespace API
                             .EnableRetryOnFailure(7, TimeSpan.FromSeconds(5), new List<int>()));
             });
 
-            // services.AddElasticsearch(Configuration);
+            services.AddElasticsearch(Configuration);
             services.AddIdentityServices();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
